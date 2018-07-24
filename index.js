@@ -16,8 +16,6 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// Desafio
-
 app.use(['/major', '/minor'], (req, res, next) => {
   if (!req.query.nome) {
     res.redirect('/');
@@ -41,16 +39,11 @@ app.get('/minor', (req, res) => {
 app.post('/check', (req, res) => {
   const { nome, dataNascimento } = req.body;
   const idade = moment().diff(moment(dataNascimento, 'YYYY-MM-DD'), 'years');
-  console.log(idade);
-  console.log(dataNascimento);
-  console.log(nome);
   if (idade > 18) {
     res.redirect(`/major?nome=${nome}`);
   } else {
     res.redirect(`/minor?nome=${nome}`);
   }
 });
-
-// Final Desafio
 
 app.listen(3000);
